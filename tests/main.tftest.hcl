@@ -37,6 +37,12 @@ run "route_table_validation" {
     condition     = aws_route_table.hashicat.vpc_id == aws_vpc.hashicat.id
     error_message = "incorrect VPC ID for route table"
   }
+
+  assert {
+    #condition = contains(["0.0.0.0/0"], aws_route_table.hashicat.route)
+    condition = anytrue([for r in  aws_route_table.hashicat.route : r.cidr_block == "0.0.0.0/0"])
+    error_message = "The route table cidr block is incorrect."
+  }
 }
 
 run "route_table_association_validation" {
