@@ -7,6 +7,10 @@ variables {
   subnet_prefix = "10.0.10.0/24"
 }
 
+provider "aws" {
+  region = var.region
+}
+
 run "vpc_validation" {
   assert {
     condition     = aws_vpc.hashicat.enable_dns_hostnames == true
