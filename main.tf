@@ -54,6 +54,7 @@ resource "aws_security_group" "hashicat" {
 
   tags = {
     Name = "${var.prefix}-security-group"
+    environment = "Production"
   }
 }
 
